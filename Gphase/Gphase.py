@@ -4,7 +4,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import random
 import networkx as nx
-from scipy.signal import argrelextrema
+from scipy.signal import argrelextrema, find_peaks
+
 
 class Gphase:
     """
@@ -186,7 +187,8 @@ class Gphase:
 
         dev1 = np.diff(chi_list)/np.diff(lam_list)
         dev2 = -np.diff(dev1)/np.diff(lam_list[:-1])
-        m_index = np.array(argrelextrema(dev2, np.greater))[0]/100
+        #m_index = np.array(argrelextrema(dev2, np.greater))[0]/100
+        m_index = np.array(find_peaks(dev2, threshold=0.05))[0]/100
 
         return dev1, dev2, m_index
 
